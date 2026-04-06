@@ -32,6 +32,10 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ssh = {
+      url = "path:/home/button/.config/nixos/.ssh";
+      flake = false;
+    };
   };
 
   outputs =
@@ -56,10 +60,6 @@
           }
           ./asus/fa608wv
         ];
-      };
-      devShells = import ./nixos/devshells.nix {
-        inherit inputs;
-        pkgs = nixpkgs;
       };
     };
 }

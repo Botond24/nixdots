@@ -6,7 +6,6 @@ $env.config.history = {
     isolation: true
 }
 $env.config.hooks.command_not_found = {|cmd|
-    let pkgs = (nix-locate $"bin/($cmd)" --minimal | lines | par-each {|it| str replace .out ""} | par-each {|it| {pkg: $it, length: ($it | str length)}})
     let pretty_commands = {|list|
         $list | each {|cmd|
             $"    (ansi {fg: "default" attr: "di"})($cmd)(ansi reset)"
@@ -34,6 +33,7 @@ $env.config.hooks.command_not_found = {|cmd|
     if (
         $closest_commands | get distance | first | $in >= 3
     ) {
+        let pkgs = (nix-locate $"bin/($cmd)" --minimal | lines | par-each {|it| str replace .out ""} | par-each {|it| {pkg: $it, length: ($it | str length)}})
         if ($pkgs | length | $in > 0) {
 	   return $"\n($cmd) is found in:\n(do $pretty_commands ($pkgs | sort-by length | get pkg)| str join "\n")"
 	} else {

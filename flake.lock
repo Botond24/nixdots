@@ -360,7 +360,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
-        "spicetify-nix": "spicetify-nix"
+        "spicetify-nix": "spicetify-nix",
+        "ssh": "ssh"
       }
     },
     "spicetify-nix": {
@@ -382,6 +383,19 @@
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
         "type": "github"
+      }
+    },
+    "ssh": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775489023,
+        "narHash": "sha256-UNVtRiDnQ6UWx8lLwRHBVvGY8dNGH5XKVKfNwoFgI38=",
+        "path": "/home/button/.config/nixos/.ssh",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/button/.config/nixos/.ssh",
+        "type": "path"
       }
     },
     "systems": {
