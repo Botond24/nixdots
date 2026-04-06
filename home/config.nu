@@ -61,6 +61,7 @@ let completers = {|spans|
         # put the first word of the expanded alias first in the span
         $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
     } else { $spans })
+    do $fish_completer $spans
 }
 $env.config.completions.external = {enable: true, completer: $completers}
 def --wrapped emacs [...rest] { job spawn {^emacs ...$rest} }
