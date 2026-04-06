@@ -1,0 +1,52 @@
+# Global properties
+title-text: ""
+desktop-image: "MENU.png"
+desktop-color: "#000000"
+terminal-font: "SpaceMono Font Mono 32"
+#terminal-box: "terminal_box_*.png"
+terminal-left: "0"
+terminal-top: "0"
+terminal-width: "100%"
+terminal-height: "100%"
+terminal-border: "0"
+
+
+# Boot menu
++ boot_menu {
+  top = 40%+90
+  left = 4%
+  width = 52%
+  height = 70%-70
+  item_font = "Brandon Grotesque Bold 32"
+  item_color = "#FD8A48"
+  item_spacing = 10
+  item_height = 80
+  #item_pixmap_style = "item/item_s_*.png"
+  selected_item_color = "#2ECFC1"
+  #selected_item_pixmap_style = "item/item_b_*.png"
+}
+
+# Countdown message
++ label {
+  left = 0
+  top = 98%-70
+  width = 100%
+  align = "center"
+  id = "__timeout__"
+  text = "Booting in %d seconds"
+  font = "Brandon Grotesque Bold 32"
+}
+
+# Navigation keys hint
++ label {
+  left = 0
+  top = 98%-30
+  width = 100%
+  align = "center"
+  text = "Use ↑ and ↓ keys to change selection, Enter to confirm"
+  color = "#ffffff"
+  font = "Brandon Grotesque Bold 32"
+}
+
+
+# Copyright (c) 2017 Andrei Shevchuk
