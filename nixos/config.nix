@@ -126,10 +126,10 @@
     };
     extraConfig = ''
       Host gitlab.com
-        IdentityFile ${.ssh/gitlab}
+        IdentityFile ${inputs.ssh}/gitlab
 
       Host github.com
-        IdentityFile ${.ssh/gitlab}
+        IdentityFile ${inputs.ssh}/github
     '';
   };
 
