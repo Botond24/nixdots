@@ -12,6 +12,7 @@
     enable = true;
     user = "button"; # Needed for system-level config
     vesktop.enable = true;
+    discord.enable = false;
     config = {
       plugins = {
         betterGifPicker.enable = true;

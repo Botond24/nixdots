@@ -54,7 +54,16 @@ in
     deepfilternet
     wl-clipboard
     tealdeer
-    atlauncher
+    (prismlauncher.override {
+      additionalPrograms = [ ffmpeg ];
+      jdks = with javaPackages.compiler; [
+        temurin-bin.jre-25
+        temurin-bin.jre-21
+        openjdk8-bootstrap
+        openjdk11-bootstrap
+        openjdk17-bootstrap
+      ];
+    })
     inputs.hytale-launcher.packages.${pkgs.system}.default
     (heroic.override {
       extraPkgs =
