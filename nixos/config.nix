@@ -64,6 +64,9 @@
       "networkmanager"
     ];
   };
+  users.groups = {
+    plugdev = { };
+  };
 
   nixpkgs.config.allowUnfree = true;
 

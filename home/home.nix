@@ -78,7 +78,7 @@ in
   programs.firefox.enable = true;
 
   home.enableNixpkgsReleaseCheck = false;
-  home.file.".local/share/ATLauncher/instances".source =
+  home.file.".local/share/PrismLauncher/instances".source =
     config.lib.file.mkOutOfStoreSymlink "/media/SSD2TB/Games/minecraft/instances";
   home.file.".emacs.d/init.el".source = ./emacs.el;
   home.file.".emacs.d/custom.el".source = config.lib.file.mkOutOfStoreSymlink ./custom.el;
