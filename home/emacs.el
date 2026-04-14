@@ -45,14 +45,14 @@
 (setf make-backup-files nil)
 (setf kill-buffer-delete-auto-save-files t)
 (setq create-lockfiles nil)
-(defun custom-isearch-forward (start end)
-  (interactive "r")
+(defun custom-isearch-forward ()
+  (interactive)
   (if (region-active-p)
       (call-interactively 'isearch-forward-thing-at-point)
     (call-interactively 'isearch-forward-regexp)
     ))
-(defun custom-isearch-backward (start end)
-  (interactive "r")
+(defun custom-isearch-backward ()
+  (interactive)
   (if (region-active-p)
       (progn
        (call-interactively 'isearch-forward-thing-at-point)
@@ -326,12 +326,12 @@
 (add-hook 'nix-mode-hook 'lsp-deferred)
 (add-hook 'nix-mode-hook 'lsp-install-save-hooks)
 
-;;; smartparens
-(use-package smartparens
-  :ensure smartparens  ;; install the package
-  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
+;;; auto parentheses
+(electric-pair-mode t)
+
+;;; discord
+(use-package elcord
   :config
-  ;; load default config
-  (require 'smartparens-config))
+  (elcord-mode))
 
 (load-file custom-file)

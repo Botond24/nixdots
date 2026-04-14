@@ -81,7 +81,8 @@ in
   home.file.".local/share/PrismLauncher/instances".source =
     config.lib.file.mkOutOfStoreSymlink "/media/SSD2TB/Games/minecraft/instances";
   home.file.".emacs.d/init.el".source = ./emacs.el;
-  home.file.".emacs.d/custom.el".source = config.lib.file.mkOutOfStoreSymlink ./custom.el;
+  home.file.".emacs.d/custom.el".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/nixos/home/custom.el";
 
   programs.emacs = {
     enable = true;

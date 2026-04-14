@@ -42,8 +42,7 @@
   ];
 
   fileSystems."/media/SSD2TB" = {
-    device = "/dev/disk/by-uuid/CCA405D1A405BF48";
-    fsType = "ntfs3";
+    device = "/dev/disk/by-label/SSD2TB";
     options = [
       "nofail"
       "x-systemd.automount"

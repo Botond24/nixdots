@@ -1,34 +1,31 @@
 {
-  inputs,
-  lib,
-  config,
   pkgs,
   ...
-}: let
+}:
+let
   custom-sddm-astronaut = pkgs.sddm-astronaut.override {
     embeddedTheme = "black_hole";
   };
 
-in {
+in
+{
   services.displayManager.sddm = {
     enable = true;
     extraPackages = [
       custom-sddm-astronaut
-     ];
+    ];
+
+    autoNumlock = true;
 
     theme = "sddm-astronaut-theme";
     settings = {
       Theme = {
         Current = "sddm-astronaut-theme";
       };
-      General = {
-        Numlock = "on";
-      };
     };
   };
 
-
-  environment.systemPackages =[
+  environment.systemPackages = [
     custom-sddm-astronaut
   ];
 }

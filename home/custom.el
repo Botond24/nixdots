@@ -16,10 +16,23 @@
  '(dired-isearch-filenames 'dwim)
  '(display-battery-mode t)
  '(display-line-numbers 'relative)
+ '(elcord-editor-icon nil)
+ '(elcord-idle-message "Fell asleep zᶻᶻᶻ")
+ '(elcord-mode t nil (elcord))
+ '(elcord-quiet t)
+ '(elcord-use-major-mode-as-main-icon t)
+ '(electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+ '(electric-pair-mode t)
  '(isearch-allow-motion t)
  '(isearch-allow-scroll 'unlimited)
  '(isearch-wrap-pause 'no-ding)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(c-eldoc company-c-headers d-mode elcord embark go-mode
+	     gruber-darker-theme ido-completing-read+ lsp-mode
+	     marginalia move-text multiple-cursors nix-mode nixfmt
+	     nushell-mode paredit platformio-mode simpleclip
+	     smartparens smex treemacs-icons-dired treemacs-magit
+	     treemacs-projectile treemacs-tab-bar))
  '(tab-bar-mode t)
  '(tab-bar-new-tab-choice ".")
  '(tool-bar-position 'left)
