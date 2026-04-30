@@ -52,7 +52,7 @@ in
       "make"
       "man"
       "nano"
-      "tealdeer"
+      "tldr"
     ];
   };
   home.packages = with pkgs; [
@@ -65,6 +65,12 @@ in
     wl-clipboard
     tealdeer
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableNushellIntegration = true;
+  };
 
   programs.kitty = {
     enable = true;

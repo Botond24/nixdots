@@ -51,15 +51,24 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./nixos/config.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.button = import ./home/home.nix;
-          }
+          # home-manager.nixosModules.home-manager
+          # {
+          #   home-manager.useGlobalPkgs = true;
+          #   home-manager.useUserPackages = true;
+          #   home-manager.extraSpecialArgs = { inherit inputs; };
+          #   home-manager.users.button = import ./home/home.nix;
+          # }
           ./asus/fa608wv
         ];
+      };
+      homeConfigurations = {
+        "button@interloper" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/home.nix
+          ];
+        };
       };
     };
 }

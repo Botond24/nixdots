@@ -15,7 +15,7 @@
  '(cursor-type 'bar)
  '(dired-isearch-filenames 'dwim)
  '(display-battery-mode t)
- '(display-line-numbers 'relative)
+ '(display-line-numbers t)
  '(elcord-editor-icon nil)
  '(elcord-idle-message "Fell asleep zᶻᶻᶻ")
  '(elcord-mode t nil (elcord))
@@ -27,12 +27,13 @@
  '(isearch-allow-scroll 'unlimited)
  '(isearch-wrap-pause 'no-ding)
  '(package-selected-packages
-   '(c-eldoc company-c-headers d-mode elcord embark go-mode
-	     gruber-darker-theme ido-completing-read+ lsp-mode
+   '(c-eldoc company-box company-c-headers company-nixos-options d-mode
+	     elcord embark go-mode gruber-darker-theme
+	     ido-completing-read+ kdl-mode lsp-mode lsp-ui lua-mode
 	     marginalia move-text multiple-cursors nix-mode nixfmt
 	     nushell-mode paredit platformio-mode simpleclip
 	     smartparens smex treemacs-icons-dired treemacs-magit
-	     treemacs-projectile treemacs-tab-bar))
+	     treemacs-projectile treemacs-tab-bar treesit-auto))
  '(tab-bar-mode t)
  '(tab-bar-new-tab-choice ".")
  '(tool-bar-position 'left)

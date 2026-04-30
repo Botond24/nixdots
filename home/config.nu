@@ -5,6 +5,7 @@ $env.config.history = {
     sync_on_enter: true
     isolation: true
 }
+
 $env.config.hooks.command_not_found = {|cmd|
     let pretty_commands = {|list|
         $list | each {|cmd|
@@ -42,6 +43,7 @@ $env.config.hooks.command_not_found = {|cmd|
     }
     $"\ndid you mean?\n(do $pretty_commands ($closest_commands | get cmd | first 3) | str join "\n")"
 }
+
 let fish_completer = {|spans|
     fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'" | from tsv --flexible --noheaders --no-infer | rename value description | update value {|row|
       let value = $row.value
@@ -52,6 +54,7 @@ let fish_completer = {|spans|
       } else {$value}
     }
 }
+
 let completers = {|spans|
     let expanded_alias = (
         scope aliases | where name == $spans.0 | get 0 | get expansion
@@ -63,5 +66,8 @@ let completers = {|spans|
     } else { $spans })
     do $fish_completer $spans
 }
-$env.config.completions.external = {enable: true, completer: $completers}
+$env.config.completions.external = {enable: true, completer: $fish_completer}
+
 def --wrapped emacs [...rest] { job spawn {^emacs ...$rest} }
+
+def pls [] { ^sudo $"(history | enumerate | drop 1 | last | get item.command)"}

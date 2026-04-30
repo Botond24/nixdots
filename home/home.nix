@@ -40,10 +40,15 @@ in
     ./shell.nix
     ./nixcord.nix
     ./spicetify.nix
+    ./emacs.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
+
   home.username = "button";
   home.homeDirectory = "/home/button";
   home.packages = with pkgs; [
+    fuzzel
     nmap
     zip
     unzip
@@ -84,28 +89,6 @@ in
   home.file.".emacs.d/custom.el".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/nixos/home/custom.el";
 
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs-pgtk;
-    extraPackages =
-      epkgs: with epkgs; [
-        nix-mode
-        nixfmt
-        nushell-mode
-        platformio-mode
-        smex
-        multiple-cursors
-        company
-        c-eldoc
-        markdown-mode
-        lsp-mode
-        go-mode
-        d-mode
-        pkgs.emacs-all-the-icons-fonts
-        smartparens
-      ];
-  };
-
   xdg = {
     enable = true;
     autostart = {
@@ -113,16 +96,12 @@ in
       readOnly = true;
       entries = autostartEntries [
         "vesktop"
-        "steam"
-        "easyeffects"
         "solaar"
       ];
     };
-    desktopEntries = {
-
-    };
   };
 
+  xdg.configFile."niri".source = ./niri;
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "26.05";

@@ -260,6 +260,9 @@
 ;;; company (complete anything)
 (use-package company
   :hook (after-init . global-company-mode))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 
 ;;; c-mode
 (use-package company-c-headers
@@ -286,8 +289,12 @@
   (ansi-color-apply-on-region compilation-filter-start (point-max)))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-;;; go mode
+;;; lsp mode
 (use-package lsp-mode)
+(use-package lsp-ui
+  :after lsp-mode)
+
+;;; go mode
 (use-package go-mode
   :mode "\\.go\\'")
 (add-hook 'go-mode-hook 'lsp-deferred)
@@ -333,5 +340,21 @@
 (use-package elcord
   :config
   (elcord-mode))
+
+;;; treesitter
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
+
+;;; kdl (niri)
+(use-package kdl-mode
+  :after (treesit-auto))
+
+;;; lua
+(use-package lua-mode
+  :mode "\\.lua\\'")
+(add-hook 'lua-mode-hook 'lsp-deferred)
+(add-hook 'lua-mode-hook 'lsp-install-save-hooks)
+
 
 (load-file custom-file)

@@ -43,6 +43,7 @@
 
   fileSystems."/media/SSD2TB" = {
     device = "/dev/disk/by-label/SSD2TB";
+    fsType = "ntfs-3g";
     options = [
       "nofail"
       "x-systemd.automount"
@@ -86,6 +87,7 @@
     lsof
     killall
     pciutils
+    ntfs3g
 
     solaar
     logitech-udev-rules
@@ -95,6 +97,8 @@
     brightnessctl
 
     nix-index
+    comma
+    nh
 
     wineWow64Packages.staging
     xsettingsd

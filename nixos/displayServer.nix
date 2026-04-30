@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -11,4 +12,7 @@
     ];
   };
   services.xserver.enable = true;
+
+  programs.niri.enable = true;
+  services.gnome.gcr-ssh-agent.enable = false;
 }
