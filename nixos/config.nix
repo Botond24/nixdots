@@ -98,7 +98,6 @@
 
     nix-index
     comma
-    nh
 
     wineWow64Packages.staging
     xsettingsd
@@ -120,6 +119,13 @@
   };
   programs.gamescope.enable = true;
   programs.gamemode.enable = true;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/button/.config/nixos"; # sets NH_OS_FLAKE variable for you
+  };
 
   programs.ssh = {
     startAgent = true;
