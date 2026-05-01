@@ -59,6 +59,8 @@ in
     deepfilternet
     wl-clipboard
     tealdeer
+
+    inputs.spreen.packages.${pkgs.stdenv.hostPlatform.system}.default
     (prismlauncher.override {
       additionalPrograms = [ ffmpeg ];
       jdks = with javaPackages.compiler; [
@@ -69,7 +71,7 @@ in
         openjdk17-bootstrap
       ];
     })
-    inputs.hytale-launcher.packages.${pkgs.system}.default
+    inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [

@@ -40,7 +40,7 @@ buildNpmPackage (finalAttrs: {
     #!${lib.getExe pkgs.bash}
     cd $out/lib/${finalAttrs.pname}
     exec ./node_modules/.bin/env-cmd -f ./src/config/dev.env \
-         ./node_modules/.bin/ts-node ./src/app.ts &
+         ./node_modules/.bin/ts-node ./src/app.ts
     EOF
 
     chmod +x $out/bin/spreen
