@@ -1,0 +1,22 @@
+From 916a61da31cc395472f8e972f2c1161f9264e758 Mon Sep 17 00:00:00 2001
+From: Botond24 <44529287+Botond24@users.noreply.github.com>
+Date: Fri, 1 May 2026 13:50:56 +0200
+Subject: [PATCH] Update config.ts
+
+---
+ src/log/config.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/log/config.ts b/src/log/config.ts
+index 1212245..c0e95d5 100644
+--- a/src/log/config.ts
++++ b/src/log/config.ts
+@@ -13,7 +13,7 @@ configure({
+ 	appenders: {
+ 		fileAppender: {
+ 			type: 'file',
+-			filename: path.join(__dirname, './logs.log'),
++			filename: process.env.SPREEND_LOG_FILE || path.join(process.env.XDG_STATE_HOME?? '/tmp', './spreen/logs.log'),
+ 		},
+ 		console: {
+ 			type: 'console',
