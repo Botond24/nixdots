@@ -43,8 +43,6 @@ in
     ./emacs.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   home.username = "button";
   home.homeDirectory = "/home/button";
   home.packages = with pkgs; [
@@ -53,14 +51,16 @@ in
     zip
     unzip
     fastfetch
-    nil
+    nixd
+    nixfmt
     vlc
     easyeffects
     deepfilternet
     wl-clipboard
     tealdeer
+    wayvnc
 
-    inputs.spreen.packages.${pkgs.stdenv.hostPlatform.system}.default
+    bs-manager
     (prismlauncher.override {
       additionalPrograms = [ ffmpeg ];
       jdks = with javaPackages.compiler; [
@@ -102,6 +102,23 @@ in
       ];
     };
   };
+
+  # systemd.user.services."wayvnc" = {
+  #   Unit = {
+  #     Description = "wayvnc VNC server";
+  #     Documentation = [ "man:wayvnc(1)" ];
+  #     After = [ config.wayland.systemd.target ];
+  #     PartOf = [ config.wayland.systemd.target ];
+  #   };
+  #   Install.WantedBy = [ config.wayland.systemd.target ];
+  #   Service.ExecStart = "${lib.getExe pkgs.wayvnc} -d";
+  # };
+  # xdg.configFile."wayvnc/config".text = ''
+  #   address=0.0.0.0
+  #   port=5901
+  # '';
+
+  xdg.configFile."tigervnc/passwd".source = "${inputs.ssh}/tigervnc/passwd";
 
   xdg.configFile."niri".source = ./niri;
   # The state version is required and should stay at the version you

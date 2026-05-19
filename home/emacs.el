@@ -113,8 +113,13 @@
 (use-package gruber-darker-theme
   :init (load-theme 'gruber-darker t))
 
-;;; treemacs
+;;; which-key
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode +1))
 
+;;; treemacs
 (use-package projectile
   :init
   (setq projectile-project-search-path '(("/run/media/button/SSD2TB/Documents/" . 3)))
@@ -129,6 +134,30 @@
   :bind
   (("C-p" . 'projectile-command-map))
   )
+
+;;; dir-locals
+(defun my-reload-dir-locals-for-current-buffer ()
+  "reload dir locals for the current buffer"
+  (interactive)
+  (let ((enable-local-variables :all))
+    (hack-dir-local-variables-non-file-buffer)))
+(defun reload-dir-locals-for-all-buffer-in-this-directory ()
+  "For every buffer with the same `default-directory` as the
+current buffer's, reload dir-locals."
+  (interactive)
+  (let ((dir default-directory))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (cl-search dir default-directory)
+          (my-reload-dir-locals-for-current-buffer))))))
+(add-hook 'emacs-lisp-mode-hook
+          (defun enable-autoreload-for-dir-locals ()
+            (when (and (buffer-file-name)
+                       (equal dir-locals-file
+                              (file-name-nondirectory (buffer-file-name))))
+              (add-hook 'after-save-hook
+                        'my-reload-dir-locals-for-all-buffer-in-this-directory
+                        nil t))))
 
 (use-package treemacs
   :defer t
@@ -161,9 +190,9 @@
 
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
+        ("C-x t 0"   . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
+        ("M-0"       . treemacs)
         ("C-x t d"   . treemacs-select-directory)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-f" . treemacs-find-file)
@@ -293,15 +322,15 @@
 (use-package lsp-mode)
 (use-package lsp-ui
   :after lsp-mode)
-
-;;; go mode
-(use-package go-mode
-  :mode "\\.go\\'")
-(add-hook 'go-mode-hook 'lsp-deferred)
 (defun lsp-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook 'lsp-install-save-hooks)
+
+;;; go mode
+(use-package go-mode
+  :hook ((go-mode . lsp-deferred)
+	 (go-mode . lsp-install-save-hooks))
+  :mode "\\.go\\'")
 
 ;;; gdb
 (setq gdb-show-main t)
@@ -322,16 +351,24 @@
      (define-key comint-mode-map (kbd "M-<up>") 'comint-previous-input)
      (define-key comint-mode-map (kbd "M-<down>") 'comint-next-input)))
 
-;;; PIO
-(use-package platformio-mode
-  :hook
-  (c++-mode . platformio-conditionally-enable))
-
 ;;; nix
+(use-package lsp-mode)
+
 (use-package nix-mode
-  :mode "\\.nix\\'")
-(add-hook 'nix-mode-hook 'lsp-deferred)
-(add-hook 'nix-mode-hook 'lsp-install-save-hooks)
+  :after lsp-mode
+  :hook ((nix-mode . lsp-deferred)
+	 (nix-mode . lsp-install-save-hooks))
+  :custom (lsp-disabled-clients '((nix-mode . nix-nil))) ;; Disable nil so that nixd will be used as lsp-server
+  :config
+  (setq lsp-nix-nixd-server-path "nixd"
+	lsp-nix-nixd-formatting-command [ "nixfmt" ]
+	lsp-nix-nixd-nixpkgs-expr "import <nixpkgs> { }"
+	lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/nb/nixos\").nixosConfigurations.interloper.options"
+	lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.interloper.options.home-manager.users.type.getSubOptions []"))
+
+(add-hook 'nix-mode-hook
+           ;; enable autocompletion with company
+           (lambda () (setq company-idle-delay 0.1)))
 
 ;;; auto parentheses
 (electric-pair-mode t)
@@ -352,9 +389,21 @@
 
 ;;; lua
 (use-package lua-mode
+  :hook ((lua-mode . lsp-deferred)
+	 (lua-mode . lsp-install-save-hooks))
   :mode "\\.lua\\'")
-(add-hook 'lua-mode-hook 'lsp-deferred)
-(add-hook 'lua-mode-hook 'lsp-install-save-hooks)
 
+;;; direnv
+(use-package direnv
+ :config
+ (direnv-mode))
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
+
+;;; cmake
+(use-package cmake-mode)
 
 (load-file custom-file)

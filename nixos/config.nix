@@ -8,6 +8,20 @@
 {
   networking.hostName = "interloper";
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      80
+      443
+      3000
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -101,6 +115,7 @@
 
     wineWow64Packages.staging
     xsettingsd
+    wayvr
   ];
 
   programs.steam = {
@@ -109,16 +124,24 @@
     extraPackages = with pkgs.kdePackages; [
       breeze
     ];
-    # localNetworkGameTransfers.openFirewall = true;
-    # remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+    remotePlay.openFirewall = true;
   };
-  services.flatpak.enable = true;
+  services.wivrn = {
+    enable = true;
+    openFirewall = true;
+    package = (pkgs.wivrn.override { cudaSupport = true; });
+    steam.importOXRRuntimes = true;
+    highPriority = true;
+  };
 
   programs.nix-ld = {
     enable = true;
   };
   programs.gamescope.enable = true;
   programs.gamemode.enable = true;
+
+  services.flatpak.enable = true;
 
   programs.nh = {
     enable = true;
@@ -132,11 +155,11 @@
     knownHosts = {
       gitlab = {
         hostNames = [ "gitlab.com" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+        publicKey = builtins.readFile "${inputs.ssh}/gitlab.pub";
       };
       github = {
         hostNames = [ "github.com" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        publicKey = builtins.readFile "${inputs.ssh}/github.pub";
       };
     };
     extraConfig = ''
@@ -146,6 +169,12 @@
       Host github.com
         IdentityFile ${inputs.ssh}/github
     '';
+  };
+
+  networking.wg-quick.interfaces = {
+    servereon = {
+      configFile = "${inputs.ssh}/wireguard/servereon.conf";
+    };
   };
 
   hardware.logitech.wireless.enable = true;

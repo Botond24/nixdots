@@ -39,8 +39,7 @@ in
       "config nix" = "emacs ~/.config/nixos";
       "config emacs" = "emacs ~/.config/nixos/home/emacs.el";
       "config nu" = "emacs ~/.config/nixos/home/config.nu";
-      "nr" = "nixos-rebuild -S";
-      "nr s" = "nr switch";
+      "nh os update" = "cd nix; nix flake update; cd -";
     };
     configFile.source = ./config.nu;
 

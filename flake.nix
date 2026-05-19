@@ -25,11 +25,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    spreen = {
-      url = "path:./flakes/Spreen";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ssh = {
       url = "path:/home/button/.config/nixos/.ssh";
       flake = false;
