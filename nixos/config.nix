@@ -1,27 +1,10 @@
 {
   inputs,
-  lib,
-  config,
   pkgs,
   ...
 }:
 {
-  networking.hostName = "interloper";
-  networking.networkmanager.enable = true;
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      80
-      443
-      3000
-    ];
-    allowedUDPPortRanges = [
-      {
-        from = 0;
-        to = 65535;
-      }
-    ];
-  };
+
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -33,6 +16,7 @@
     ./audio.nix
     ./displayServer.nix
     ./loginManager.nix
+    ./network.nix
   ];
 
   # Enable CUPS to print documents.
@@ -72,6 +56,8 @@
     isNormalUser = true;
     extraGroups = [
       "wheel"
+      "input"
+      "tty"
       "audio"
       "plugdev"
       "docker"
@@ -147,7 +133,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/button/.config/nixos"; # sets NH_OS_FLAKE variable for you
+    #flake = "/home/button/.config/nixos"; # sets NH_OS_FLAKE variable for you
   };
 
   programs.ssh = {
@@ -171,18 +157,45 @@
     '';
   };
 
-  networking.wg-quick.interfaces = {
-    servereon = {
-      configFile = "${inputs.ssh}/wireguard/servereon.conf";
-    };
-  };
-
   hardware.logitech.wireless.enable = true;
   hardware.bluetooth.enable = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "button";
+    dataDir = "/home/button/Sync";
+    databaseDir = "/home/button/.local/state/syncthing"; # Default folder for new synced folders
+    configDir = "/home/button/.config/syncthing"; # Folder for Syncthing's settings and keys
+    guiPasswordFile = "${inputs.ssh}/synchting/passwordFile";
+    settings = {
+      devices = {
+        phone = {
+          id = "5WQBAPP-VOSWWUC-6KRBFYP-Y57UYWO-BTNDCLF-CVAXY4L-65HLDZX-Y7D32AX";
+        };
+      };
+      folders = {
+        keepass = {
+          id = "sx1q2-w8q15";
+          label = "KeePass";
+          devices = [ "phone" ];
+          path = "/home/button/keepass";
+        };
+      };
+      options.urAccepted = -1;
+    };
+  };
+
+
+  # Numworks
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="a291", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", GROUP="plugdev"
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

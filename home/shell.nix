@@ -11,35 +11,37 @@ let
     completions:
     let
       # get the paths of all completions[n]
-      paths = builtins.map (
+      paths = map (
         x:
-        builtins.map (y: nu_scripts_path + "/custom-completions/" + x + "/" + y) (
+        map (y: nu_scripts_path + "/custom-completions/" + x + "/" + y) (
           builtins.attrNames (builtins.readDir (nu_scripts_path + "/custom-completions/" + x))
         )
       ) completions;
 
       # filter out non .nu files under each path in paths
-      files = lib.flatten (
-        builtins.map (y: builtins.filter (x: ((builtins.match ".*\\.nu" x) != null)) y) paths
-      );
+      files = lib.flatten (map (y: builtins.filter (x: ((builtins.match ".*\\.nu" x) != null)) y) paths);
     in
     # concat them for the config
-    "\n" + lib.concatLines (builtins.map (x: "source " + x) files);
+    "\n" + lib.concatLines (map (x: "source " + x) files);
 in
 {
   home.shell.enableNushellIntegration = true;
-  programs.zoxide.enable = true;
+  programs.zoxide = {
+    enable = true;
+    options = [
+      "--cmd=cd"
+    ];
+  };
 
   programs.nushell = {
     enable = true;
     shellAliases = {
-      cd = "z";
-      "cd --" = "z ~";
-      "cd ssd" = "z /media/SSD2TB";
       "config nix" = "emacs ~/.config/nixos";
       "config emacs" = "emacs ~/.config/nixos/home/emacs.el";
       "config nu" = "emacs ~/.config/nixos/home/config.nu";
       "nh os update" = "cd nix; nix flake update; cd -";
+      "cd --" = "cd ~";
+      "cd ssd" = "cd /media/SSD2TB/";
     };
     configFile.source = ./config.nu;
 
@@ -125,5 +127,5 @@ in
       jq-zsh-plugin
     ];
   };
-  programs.intelli-shell.enable = true;
+  #programs.intelli-shell.enable = true;
 }

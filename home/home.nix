@@ -33,6 +33,7 @@ let
     in
     desktop;
   autostartEntries = builtins.map autostartEntry;
+  stdenv = pkgs.stdenv;
 in
 {
   imports = [
@@ -50,16 +51,21 @@ in
     nmap
     zip
     unzip
+    rar
     fastfetch
     nixd
     nixfmt
     vlc
-    easyeffects
-    deepfilternet
     wl-clipboard
     tealdeer
-    wayvnc
+    keepassxc
 
+    kicad
+    prusa-slicer
+
+    easyeffects
+    deepfilternet
+    wayvnc
     bs-manager
     (prismlauncher.override {
       additionalPrograms = [ ffmpeg ];
@@ -79,17 +85,18 @@ in
           gamemode
         ];
     })
-    rar
   ];
 
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts = [ pkgs.keepassxc ];
+  };
 
   home.enableNixpkgsReleaseCheck = false;
   home.file.".local/share/PrismLauncher/instances".source =
     config.lib.file.mkOutOfStoreSymlink "/media/SSD2TB/Games/minecraft/instances";
-  home.file.".emacs.d/init.el".source = ./emacs.el;
-  home.file.".emacs.d/custom.el".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/nixos/home/custom.el";
+
+  services.playerctld.enable = true;
 
   xdg = {
     enable = true;

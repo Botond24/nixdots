@@ -60,6 +60,40 @@
     (call-interactively 'isearch-forward-regexp)
     ))
 
+;;; music modeline
+
+(defvar my-playerctl-proc nil)
+(defvar my-playerctl-text "")
+
+(defun my-track-update (text)
+  (setq my-playerctl-text text)
+
+  ;; refresh modelines
+  (force-mode-line-update t))
+
+(setq-default mode-line-format
+      (append mode-line-format
+              '("   " (:eval my-playerctl-text))))
+
+(defun my-playerctl-filter (_proc output)
+  (dolist (line (split-string output "\n" t))
+    (my-track-update line)))
+
+(defun start-playerctl (&optional form ignored)
+  (let* ((ignored (or ignored '("firefox" "plasma-browser-integration")))
+	 (ignore-arg(when ignored (format "--ignore-player=%s" (mapconcat #'identity ignored ","))))
+         (form (or form "{{artist}}: {{title}} - {{duration(position)}}/{{duration(mpris:length)}} {{lc(status)}}"))
+         (args (append '("metadata" "--follow") (when ignore-arg (list ignore-arg)) (list "--format" form))))
+    (setq my-playerctl-proc
+          (make-process :name "playerctl" :buffer nil :command (append '("playerctl") args) :noquery t :filter #'my-playerctl-filter)
+	  )))
+(start-playerctl)
+
+(defun restart-playerctl ()
+  (interactive)
+  (delete-process my-playerctl-proc)
+  (start-playerctl))
+
 ;;; custom keybinds
 (global-set-key (kbd "C-é") (kbd "C-g"))
 (global-set-key (kbd "C-q") 'save-buffers-kill-emacs)
