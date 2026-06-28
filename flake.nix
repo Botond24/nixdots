@@ -29,6 +29,10 @@
       url = "path:/home/button/.config/nixos/.ssh";
       flake = false;
     };
+    openrgb-highlighter = {
+      url = "path:/home/button/.config/nixos/flakes/openrgb-keyboard-highlighter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

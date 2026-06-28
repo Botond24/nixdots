@@ -59,9 +59,11 @@ in
     wl-clipboard
     tealdeer
     keepassxc
+    pinta
 
     kicad
     prusa-slicer
+    openrgb-with-all-plugins
 
     easyeffects
     deepfilternet
@@ -89,7 +91,7 @@ in
 
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [ pkgs.keepassxc ];
+    nativeMessagingHosts = [ pkgs.keepassxc pkgs.fx-cast-bridge ];
   };
 
   home.enableNixpkgsReleaseCheck = false;
@@ -106,6 +108,7 @@ in
       entries = autostartEntries [
         "vesktop"
         "solaar"
+        {name = "org.openrgb.OpenRGB"; pkg = pkgs.openrgb-with-all-plugins;}
       ];
     };
   };

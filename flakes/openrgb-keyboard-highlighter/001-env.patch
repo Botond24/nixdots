@@ -1,0 +1,18 @@
+diff --git a/openrgb_highlighter b/openrgb_highlighter
+index bdad4b8..f707529 100755
+--- a/openrgb_highlighter
++++ b/openrgb_highlighter
+@@ -1,4 +1,4 @@
+-#!/root/openrgb_keyboard_highlighter_venv/bin/python
++#!/usr/bin/env python
+ import logging
+ from openrgb import OpenRGBClient
+ from openrgb.utils import RGBColor, DeviceType
+@@ -144,6 +144,6 @@ class KeyboardController:
+             logger.info(f"Log level set to: {log_level}")
+
+             # Start openrgb server
+-            self.start_rgb_server()
++            #self.start_rgb_server()
+
+             time.sleep(5)

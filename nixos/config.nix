@@ -17,6 +17,7 @@
     ./displayServer.nix
     ./loginManager.nix
     ./network.nix
+    inputs.openrgb-highlighter.nixosModules.x86_64-linux.default
   ];
 
   # Enable CUPS to print documents.
@@ -133,7 +134,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    #flake = "/home/button/.config/nixos"; # sets NH_OS_FLAKE variable for you
+    flake = "/home/button/.config/nixos"; # sets NH_OS_FLAKE variable for you
   };
 
   programs.ssh = {
@@ -162,6 +163,11 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+  };
+  services.hardware.openrgb.enable = true;
+  services.openrgb-highlighter = {
+    enable = true;
+    user = "button";
   };
 
   services.syncthing = {
@@ -195,6 +201,7 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="a291", MODE="0666", GROUP="plugdev"
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", MODE="0666"
   '';
 
   # This value determines the NixOS release from which the default

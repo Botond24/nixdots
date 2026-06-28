@@ -39,7 +39,7 @@
         shikiCodeblocks.enable = true;
         spotifyControls.enable = true;
         unlockedAvatarZoom.enable = true;
-        USRBG.enable = true;
+        usrbg.enable = true;
         youtubeAdblock.enable = true;
         platformIndicators.enable = true;
       };
