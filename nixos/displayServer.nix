@@ -11,6 +11,7 @@
       discover
     ];
   };
+  programs.partition-manager.enable = true;
   services.xserver.enable = true;
 
   programs.niri.enable = true;

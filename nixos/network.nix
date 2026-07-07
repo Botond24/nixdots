@@ -15,6 +15,11 @@
     };
   };
 
+  networking.hosts = {
+    "192.168.1.177" = ["octopi.local"];
+    "10.0.0.5" = ["servereon.local"];
+  };
+
 
   networking.networkmanager = {
     enable = true;
