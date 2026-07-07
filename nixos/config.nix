@@ -197,6 +197,9 @@
   };
 
 
+  programs.ns-usbloader.enable = true;
+  services.udisks2.enable = true;
+  virtualisation.docker.enable = true;
   # Numworks
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="a291", MODE="0666", GROUP="plugdev"

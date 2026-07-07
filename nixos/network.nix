@@ -15,6 +15,10 @@
     };
   };
 
+  networking.hosts = {
+    "192.168.1.177" = ["octopi.local"];
+  };
+
 
   networking.networkmanager = {
     enable = true;

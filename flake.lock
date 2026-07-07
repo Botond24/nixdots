@@ -237,8 +237,8 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1782499094,
-        "narHash": "sha256-a/eBzH56nm1Bk8NznSCGI8QzfGIlIR3NVcADx6kUKjY=",
+        "lastModified": 1783288807,
+        "narHash": "sha256-KSkNmlly8UM0gaKp3+FE1YgIItdjmjTNvUgvxU4lXKE=",
         "path": "/home/button/.config/nixos/flakes/openrgb-keyboard-highlighter",
         "type": "path"
       },
