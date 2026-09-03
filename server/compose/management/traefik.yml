@@ -1,0 +1,41 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: true
+
+entryPoints:
+  web:
+    address: :80
+
+  websecure:
+    address: :443
+
+log:
+#  level: DEBUG
+#  filePath: /log/traefik.log
+# Format is either "json" or "common".
+#  format: json
+
+#accessLog:
+# Sets the file path for the access log. If not specified, stdout will be used.
+#  filePath: /path/to/log/log.txt
+# Format is either "json", "common", or "genericCLF".
+#  format: json
+
+api:
+  insecure: true
+  dashboard: true
+
+
+# Enable ping
+#ping:
+#  entryPoint: traefik
+
+providers:
+  docker:
+    # Default: "unix:///var/run/docker.sock"
+#    endpoint: tcp://10.10.10.10:2375
+    # Default host rule.
+    # Default: "Host(`{{ normalize .Name }}`)"
+    defaultRule: Host(`{{ normalize .Name }}.servereon.local`)
+    # Default: true
+#    exposedByDefault: false

@@ -3,6 +3,7 @@
   pkgs,
   config,
   lib,
+
   ...
 }:
 let
@@ -26,7 +27,7 @@ let
           };
       path = "${names.pkg}/share/applications";
       name = names.name;
-      paths = builtins.map (x: path + "/" + x) (builtins.attrNames (builtins.readDir path));
+      paths = map (x: path + "/" + x) (builtins.attrNames (builtins.readDir path));
       desktop = lib.findFirst (
         x: builtins.match ".*${name}\\.desktop$" x != null
       ) "${name}.desktop not found" paths;
@@ -34,6 +35,20 @@ let
     desktop;
   autostartEntries = builtins.map autostartEntry;
   stdenv = pkgs.stdenv;
+
+  generateFolder = name: let
+    files = map (x: name + "/" + x) (builtins.attrNames (builtins.readDir (./. + "/${name}")));
+  in builtins.listToAttrs (map (x: {name = x; value = { source = (./. + "/${x}");};}) files);
+
+  system = stdenv.hostPlatform.system;
+
+  pluginList = [
+    "com.fapiko.jetbrains.plugins.better_direnv"
+    "com.github.copilot"
+    "com.github.deeepamin.gitlabciaid"
+    "org.jetbrains.plugins.gitlab"
+    "io.github.salatmaster.direnv"
+  ];
 in
 {
   imports = [
@@ -61,6 +76,7 @@ in
     keepassxc
     pinta
 
+    (inputs.nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs "idea" pluginList)
     kicad
     prusa-slicer
     openrgb-with-all-plugins
@@ -79,7 +95,7 @@ in
         openjdk17-bootstrap
       ];
     })
-    inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.hytale-launcher.packages.${system}.default
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [
@@ -92,6 +108,10 @@ in
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = [ pkgs.keepassxc pkgs.fx-cast-bridge ];
+  };
+
+  programs.zed-editor = {
+    enable = true;
   };
 
   home.enableNixpkgsReleaseCheck = false;
@@ -128,9 +148,13 @@ in
   #   port=5901
   # '';
 
-  xdg.configFile."tigervnc/passwd".source = "${inputs.ssh}/tigervnc/passwd";
+  xdg.configFile = generateFolder "niri" // {
+    "tigervnc/passwd".source = "${inputs.ssh}/tigervnc/passwd";
+    "niri/generated.kdl".text = lib.hm.generators.toKDL {} {
+      "spawn-at-startup" = "${lib.getExe inputs.openrgb-highlighter.packages.${system}.default}";
+    };
+  };
 
-  xdg.configFile."niri".source = ./niri;
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "26.05";

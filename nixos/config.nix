@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 {
@@ -18,6 +19,7 @@
     ./loginManager.nix
     ./network.nix
     inputs.openrgb-highlighter.nixosModules.x86_64-linux.default
+#    ../server/config.nix
   ];
 
   # Enable CUPS to print documents.
@@ -90,6 +92,8 @@
     pciutils
     ntfs3g
 
+    deluge
+
     solaar
     logitech-udev-rules
     ltunify
@@ -110,6 +114,7 @@
     gamescopeSession.enable = true;
     extraPackages = with pkgs.kdePackages; [
       breeze
+      pkgs.wavpack
     ];
     localNetworkGameTransfers.openFirewall = true;
     remotePlay.openFirewall = true;
@@ -170,18 +175,24 @@
     user = "button";
   };
 
-  services.syncthing = {
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
+  services.syncthing = rec {
     enable = true;
     openDefaultPorts = true;
     user = "button";
-    dataDir = "/home/button/Sync";
-    databaseDir = "/home/button/.local/state/syncthing"; # Default folder for new synced folders
-    configDir = "/home/button/.config/syncthing"; # Folder for Syncthing's settings and keys
+    dataDir = "${config.users.users."${user}".home}/Sync";
+    databaseDir = "${config.users.users."${user}".home}/.local/state/syncthing"; # Default folder for new synced folders
+    configDir = "${config.users.users."${user}".home}/.config/syncthing"; # Folder for Syncthing's settings and keys
     guiPasswordFile = "${inputs.ssh}/synchting/passwordFile";
     settings = {
       devices = {
         phone = {
-          id = "5WQBAPP-VOSWWUC-6KRBFYP-Y57UYWO-BTNDCLF-CVAXY4L-65HLDZX-Y7D32AX";
+          id = "ORMM2CL-TLWLQCV-4LCZ5CV-GHAJW55-TNDDUSM-C6KDBM6-YLE7ALF-EUVS3QU";
         };
       };
       folders = {
@@ -189,22 +200,16 @@
           id = "sx1q2-w8q15";
           label = "KeePass";
           devices = [ "phone" ];
-          path = "/home/button/keepass";
+          path = "${config.users.users."${user}".home}/keepass";
         };
       };
       options.urAccepted = -1;
     };
   };
-
-
-  programs.ns-usbloader.enable = true;
-  services.udisks2.enable = true;
-  virtualisation.docker.enable = true;
   # Numworks
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="a291", MODE="0666", GROUP="plugdev"
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", MODE="0666"
   '';
 
   # This value determines the NixOS release from which the default

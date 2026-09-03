@@ -253,6 +253,11 @@ current buffer's, reload dir-locals."
 (use-package treemacs-projectile
   :after (treemacs projectile))
 
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
 ;;; embark
 (use-package marginalia
   :config
@@ -352,8 +357,12 @@ current buffer's, reload dir-locals."
   (ansi-color-apply-on-region compilation-filter-start (point-max)))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-;;; lsp mode
-(use-package lsp-mode)
+;;; lspmode
+(use-package lsp-mode
+  :hook ((lsp-mode . lsp-enable-which-key-integration)))
+
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
 (use-package lsp-ui
   :after lsp-mode)
 (defun lsp-install-save-hooks ()
@@ -386,19 +395,17 @@ current buffer's, reload dir-locals."
      (define-key comint-mode-map (kbd "M-<down>") 'comint-next-input)))
 
 ;;; nix
-(use-package lsp-mode)
-
 (use-package nix-mode
   :after lsp-mode
-  :hook ((nix-mode . lsp-deferred)
+  :hook ((nix-mode . lsp)
 	 (nix-mode . lsp-install-save-hooks))
   :custom (lsp-disabled-clients '((nix-mode . nix-nil))) ;; Disable nil so that nixd will be used as lsp-server
   :config
   (setq lsp-nix-nixd-server-path "nixd"
 	lsp-nix-nixd-formatting-command [ "nixfmt" ]
 	lsp-nix-nixd-nixpkgs-expr "import <nixpkgs> { }"
-	lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/nb/nixos\").nixosConfigurations.interloper.options"
-	lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.interloper.options.home-manager.users.type.getSubOptions []"))
+	lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/etc/nixos/\").nixosConfigurations.interloper.options"
+	lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/etc/nixos/\").nixosConfigurations.interloper.options.home-manager.users.type.getSubOptions []"))
 
 (add-hook 'nix-mode-hook
            ;; enable autocompletion with company
@@ -423,7 +430,7 @@ current buffer's, reload dir-locals."
 
 ;;; lua
 (use-package lua-mode
-  :hook ((lua-mode . lsp-deferred)
+  :hook ((lua-mode . lsp)
 	 (lua-mode . lsp-install-save-hooks))
   :mode "\\.lua\\'")
 
@@ -432,12 +439,33 @@ current buffer's, reload dir-locals."
  :config
  (direnv-mode))
 (use-package exec-path-from-shell
-  :ensure t
   :config
   (exec-path-from-shell-initialize))
 
-
 ;;; cmake
 (use-package cmake-mode)
+
+;;; web
+(use-package web-mode
+  :ensure t
+  :mode
+  (("\\.phtml\\'" . web-mode)
+   ("\\.php\\'" . web-mode)
+   ("\\.tpl\\'" . web-mode)
+   ("\\.[agj]sp\\'" . web-mode)
+   ("\\.as[cp]x\\'" . web-mode)
+   ("\\.erb\\'" . web-mode)
+   ("\\.mustache\\'" . web-mode)
+   ("\\.djhtml\\'" . web-mode)))
+
+(use-package typescript-mode
+  :hook ((typsecript-mode . lsp)))
+
+(use-package tide
+  :after (typescript-mode company flycheck)
+  :custom (lsp-disabled-clients '(append lsp-disabled-clients (typescript-mode . typescript)))
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
 
 (load-file custom-file)

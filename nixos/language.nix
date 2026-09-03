@@ -21,6 +21,7 @@
   services.xserver.xkb = {
     layout = "hu";
     variant = "";
+    options = "kpdl:dot";
   };
 
   # Configure console keymap

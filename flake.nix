@@ -1,5 +1,5 @@
 {
-  description = "Button's NixOS config";
+  description = "Button's NixOS config + server config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -30,7 +30,28 @@
       flake = false;
     };
     openrgb-highlighter = {
-      url = "path:/home/button/.config/nixos/flakes/openrgb-keyboard-highlighter";
+      url = "github:Botond24/openrgb-keyboard-highlighter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    arion = {
+      url = "github:hercules-ci/arion";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko-zfs = {
+      url = "github:numtide/disko-zfs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.disko.follows = "disko";
+    };
+    dev-templates = {
+      url = "github:the-nix-way/dev-templates";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-jetbrains-plugins = {
+      url = "github:nix-community/nix-jetbrains-plugins";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -57,6 +78,25 @@
           }
           ./asus/fa608wv
         ];
+      };
+
+      nixosConfigurations.servereon = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./nixos/hardware-configuration.nix
+          ./server/config.nix
+          inputs.disko.nixosModules.default
+          inputs.disko-zfs.nixosModules.default
+        ];
+      };
+
+      templates = let
+        generateTemplates = inpath: overwrites: let
+          dir = builtins.readDir inpath;
+          folders = builtins.attrNames dir;
+        in (builtins.listToAttrs (map (x: { name = "${x}"; value = { path = inpath + "/${x}"; description = "Template for ${x} development.";};}) folders)) // overwrites;
+      in generateTemplates ./templates {
+        cpp = self.templates.c // { description = "Template for c++ development (local).";};
       };
     };
 }

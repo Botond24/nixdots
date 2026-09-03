@@ -26,15 +26,7 @@
  '(isearch-allow-motion t)
  '(isearch-allow-scroll 'unlimited)
  '(isearch-wrap-pause 'no-ding)
- '(package-selected-packages
-   '(c-eldoc cmake-mode company-box company-c-headers
-	     company-nixos-options d-mode direnv elcord embark
-	     exec-path-from-shell go-mode gruber-darker-theme
-	     ido-completing-read+ kdl-mode lsp-mode lsp-ui lua-mode
-	     marginalia move-text multiple-cursors nix-mode nixfmt
-	     nushell-mode paredit platformio-mode simpleclip
-	     smartparens smex treemacs-icons-dired treemacs-magit
-	     treemacs-projectile treemacs-tab-bar treesit-auto))
+ '(package-selected-packages nil)
  '(safe-local-variable-directories '("/media/SSD2TB/Documents/RUG-HW/ICG/icgv_framework/"))
  '(tab-bar-mode t)
  '(tab-bar-new-tab-choice ".")

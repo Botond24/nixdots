@@ -12,7 +12,7 @@
     enable = true;
     user = "button"; # Needed for system-level config
     vesktop.enable = true;
-    discord.enable = false;
+    discord.enable = false; #vencord.enable = true;
     config = {
       plugins = {
         betterGifPicker.enable = true;
@@ -26,7 +26,6 @@
         fakeNitro.enable = true;
         fakeProfileThemes.enable = true;
         favoriteEmojiFirst.enable = true;
-        favoriteGifSearch.enable = true;
         fixCodeblockGap.enable = true;
         fixImagesQuality.enable = true;
         fixSpotifyEmbeds.enable = true;

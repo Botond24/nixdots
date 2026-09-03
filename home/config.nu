@@ -15,8 +15,8 @@ $env.config.hooks.command_not_found = {|cmd|
     let commands_in_path = (if ($nu.os-info.name == windows) {
         $env.Path | each {|directory|
                 if ($directory | path exists) {
-                    let cmd_exts = $env.PATHEXT | str downcase | split row ';' | str trim --char .
-                    ls $directory | get name | path parse | where {|it| $cmd_exts | any {|ext| $ext == ($it.extension | str downcase)} } | get stem
+                    let cmd_exts = $env.PATHEXT | str lowercase | split row ';' | str trim --char .
+                    ls $directory | get name | path parse | where {|it| $cmd_exts | any {|ext| $ext == ($it.extension | str lowercase)} } | get stem
                 }
             }
     } else {
@@ -70,4 +70,4 @@ $env.config.completions.external = {enable: true, completer: $fish_completer}
 
 def --wrapped emacs [...rest] { job spawn {^emacs ...$rest} }
 
-def pls [] { ^sudo $"(history | enumerate | drop 1 | last | get item.command)"}
+def pls [] { ^sudo ...(history | enumerate | drop 1 | last | get item.command | split row ' ')}

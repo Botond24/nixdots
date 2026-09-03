@@ -1,0 +1,42 @@
+[2026-08-08T17:56:45.493Z] info: kubernetes.yaml was copied to the config folder
+[2026-08-09T22:56:34.962Z] info: docker.yaml was copied to the config folder
+[2026-08-09T22:56:34.963Z] info: services.yaml was copied to the config folder
+[2026-08-09T22:56:34.964Z] info: bookmarks.yaml was copied to the config folder
+[2026-08-09T22:56:34.965Z] info: proxmox.yaml was copied to the config folder
+[2026-08-09T22:56:34.995Z] info: widgets.yaml was copied to the config folder
+[2026-08-09T22:56:34.996Z] info: custom.css was copied to the config folder
+[2026-08-09T22:56:34.996Z] info: custom.js was copied to the config folder
+[2026-08-09T22:59:51.821Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:51.847Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:51.994Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:51.998Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.001Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.004Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.008Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.011Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.016Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.020Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.041Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.044Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-09T22:59:52.047Z] error: Host validation failed for: 172.19.0.3:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-08-10T18:12:34.570Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-10T18:13:53.833Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-10T18:21:04.310Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
