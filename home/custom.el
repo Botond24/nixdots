@@ -13,6 +13,10 @@
 			  context-menu-local context-menu-minor))
  '(context-menu-mode t)
  '(cursor-type 'bar)
+ '(custom-safe-themes
+   '("6b13c8afb5b23b42ab2caf73e5f347b0aa57e17d7eb01dc77ae8b3bac5872b52"
+     "62426c5f2bdd9dc11014e283870509fc14520b3ea827a19a5950a7b9876fbbd6"
+     default))
  '(dired-isearch-filenames 'dwim)
  '(display-battery-mode t)
  '(display-line-numbers t)

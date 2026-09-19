@@ -23,7 +23,7 @@
               nodejs
               corepack
               typescript-language-server
-              typescript-go
+              typescript
             ];
         };
 

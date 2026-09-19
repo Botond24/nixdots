@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -13,7 +14,7 @@
       fsIdentifier = "uuid";
       default = "saved";
       device = "nodev";
-      theme = ../grub-theme;
+      theme = lib.mkForce ../grub-theme;
       extraEntries = ''
         menuentry "UEFI" --class efi $menuentry_id_option 'uefi-firmware' {
                   fwsetup

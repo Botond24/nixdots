@@ -14,7 +14,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          #overlays = [ self.overlays.default ];
+          #overlays = [ self.overlays.${system}.default ];
         };
         stdenv = pkgs.stdenv;
         lib = pkgs.lib;

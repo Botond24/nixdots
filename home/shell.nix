@@ -39,7 +39,6 @@ in
       "config nix" = "emacs ~/.config/nixos";
       "config emacs" = "emacs ~/.config/nixos/home/emacs.el";
       "config nu" = "emacs ~/.config/nixos/home/config.nu";
-      "nh os update" = "cd nix; nix flake update; cd -";
       "cd --" = "cd ~";
       "cd ssd" = "cd /media/SSD2TB/";
     };
@@ -84,8 +83,9 @@ in
       "ctrl+w" = "close_tab";
     };
     settings = {
-      shell = "${homePath}/bin/nu";
+      shell = "${lib.getExe pkgs.nushell}";
 
+      allow_remote_control = "no";
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
@@ -97,13 +97,15 @@ in
       background = "#181818";
       selection_foreground = "#000000";
       selection_background = "#fffacd";
-      background_opacity = 0.5;
       background_blur = 1;
     };
   };
   programs.starship = {
     enable = true;
     presets = [ "nerd-font-symbols" ];
+    settings = {
+      direnv.disabled = false;
+    };
   };
 
   programs.zsh = {

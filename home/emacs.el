@@ -1,7 +1,8 @@
+;; -*- lexical-binding: t; -*-
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
@@ -80,7 +81,7 @@
     (my-track-update line)))
 
 (defun start-playerctl (&optional form ignored)
-  (let* ((ignored (or ignored '("firefox" "plasma-browser-integration")))
+  (let* ((ignored (or ignored '("firefox" "plasma-browser-integration" "kdeconnect")))
 	 (ignore-arg(when ignored (format "--ignore-player=%s" (mapconcat #'identity ignored ","))))
          (form (or form "{{artist}}: {{title}} - {{duration(position)}}/{{duration(mpris:length)}} {{lc(status)}}"))
          (args (append '("metadata" "--follow") (when ignore-arg (list ignore-arg)) (list "--format" form))))
@@ -142,10 +143,6 @@
 ;;; redo
 (global-unset-key (kbd "C-y"))
 (global-set-key (kbd "C-y") 'undo-redo)
-
-;;; theme
-(use-package gruber-darker-theme
-  :init (load-theme 'gruber-darker t))
 
 ;;; which-key
 (use-package which-key
@@ -341,6 +338,9 @@ current buffer's, reload dir-locals."
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 (defvar c-eldoc-includes "-I./ -I../ ") ;; include flags
+(setq lsp-clients-clangd-args
+      (list (concat "--query-driver=" (executable-find "gcc"))))
+
 
 ;;; move text
 (use-package move-text)

@@ -9,9 +9,36 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:Botond24/stylix/step-1-tinty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ssh = {
+      url = "path:/home/button/.config/nixos/.ssh";
+      flake = false;
+    };
+
+    arion = {
+      url = "github:hercules-ci/arion";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko-zfs = {
+      url = "github:numtide/disko-zfs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.disko.follows = "disko";
+    };
+
 
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=latest";
+    };
+    nix-index = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
       url = "github:FlameFlag/nixcord";
@@ -25,26 +52,9 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ssh = {
-      url = "path:/home/button/.config/nixos/.ssh";
-      flake = false;
-    };
     openrgb-highlighter = {
       url = "github:Botond24/openrgb-keyboard-highlighter";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    arion = {
-      url = "github:hercules-ci/arion";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    disko-zfs = {
-      url = "github:numtide/disko-zfs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.disko.follows = "disko";
     };
     dev-templates = {
       url = "github:the-nix-way/dev-templates";
@@ -68,6 +78,7 @@
         # system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          ./stylix
           ./nixos/config.nix
           home-manager.nixosModules.home-manager
           {

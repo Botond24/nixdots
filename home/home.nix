@@ -3,7 +3,6 @@
   pkgs,
   config,
   lib,
-
   ...
 }:
 let
@@ -27,18 +26,17 @@ let
           };
       path = "${names.pkg}/share/applications";
       name = names.name;
-      paths = map (x: path + "/" + x) (builtins.attrNames (builtins.readDir path));
+      paths = map (x: path + "/${x}") (builtins.attrNames (builtins.readDir path));
       desktop = lib.findFirst (
         x: builtins.match ".*${name}\\.desktop$" x != null
       ) "${name}.desktop not found" paths;
     in
-    desktop;
+      desktop;
+
   autostartEntries = builtins.map autostartEntry;
   stdenv = pkgs.stdenv;
 
-  generateFolder = name: let
-    files = map (x: name + "/" + x) (builtins.attrNames (builtins.readDir (./. + "/${name}")));
-  in builtins.listToAttrs (map (x: {name = x; value = { source = (./. + "/${x}");};}) files);
+
 
   system = stdenv.hostPlatform.system;
 
@@ -57,13 +55,12 @@ in
     ./nixcord.nix
     ./spicetify.nix
     ./emacs.nix
+    ./niri
   ];
 
   home.username = "button";
   home.homeDirectory = "/home/button";
   home.packages = with pkgs; [
-    fuzzel
-    nmap
     zip
     unzip
     rar
@@ -129,6 +126,7 @@ in
         "vesktop"
         "solaar"
         {name = "org.openrgb.OpenRGB"; pkg = pkgs.openrgb-with-all-plugins;}
+        {name = "org.keepassxc.KeePassXC"; pkg = pkgs.keepassxc;}
       ];
     };
   };
@@ -148,13 +146,7 @@ in
   #   port=5901
   # '';
 
-  xdg.configFile = generateFolder "niri" // {
-    "tigervnc/passwd".source = "${inputs.ssh}/tigervnc/passwd";
-    "niri/generated.kdl".text = lib.hm.generators.toKDL {} {
-      "spawn-at-startup" = "${lib.getExe inputs.openrgb-highlighter.packages.${system}.default}";
-    };
-  };
-
+  xdg.configFile."tigervnc/passwd".source = "${inputs.ssh}/tigervnc/passwd";
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "26.05";

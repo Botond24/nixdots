@@ -35,8 +35,5 @@ pkgs,
         rotatingCoverart
         pointer
       ];
-
-      theme = spicePkgs.themes.dribbblish;
-      colorScheme = "lunar";
     };
 }

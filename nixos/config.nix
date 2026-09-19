@@ -18,6 +18,7 @@
     ./displayServer.nix
     ./loginManager.nix
     ./network.nix
+    ./nix-index.nix
     inputs.openrgb-highlighter.nixosModules.x86_64-linux.default
 #    ../server/config.nix
   ];
@@ -100,9 +101,6 @@
 
     starship
     brightnessctl
-
-    nix-index
-    comma
 
     wineWow64Packages.staging
     xsettingsd
@@ -211,6 +209,10 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="a291", MODE="0666", GROUP="plugdev"
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", GROUP="plugdev"
   '';
+
+  virtualisation.docker = {
+    enable = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
