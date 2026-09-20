@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ssh = {
-      url = "path:/home/button/.config/nixos/.ssh";
+      url = "path:/mnt/etc/nixos/.ssh";
       flake = false;
     };
 
@@ -32,7 +32,6 @@
       inputs.disko.follows = "disko";
     };
 
-
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=latest";
     };
@@ -44,9 +43,10 @@
       url = "github:FlameFlag/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hytale-launcher = {
-      url = "github:JPyke3/hytale-launcher-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager = {
+      url = "github:Botond24/plasma-manager";
+      inputs.nixpkgs.follows ="nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -64,6 +64,10 @@
       url = "github:nix-community/nix-jetbrains-plugins";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -78,6 +82,7 @@
         # system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          inputs.nur.modules.nixos.default
           ./stylix
           ./nixos/config.nix
           home-manager.nixosModules.home-manager
@@ -85,6 +90,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
+            #home-manager.verbose = true;
             home-manager.users.button = import ./home/home.nix;
           }
           ./asus/fa608wv

@@ -72,4 +72,5 @@ in {
       terminal = 0.5;
     };
   };
+  stylix.targets.gnome.enable = false;
 }

@@ -56,6 +56,8 @@ in
     ./spicetify.nix
     ./emacs.nix
     ./niri
+    ./firefox.nix
+    ./plasma.nix
   ];
 
   home.username = "button";
@@ -92,7 +94,6 @@ in
         openjdk17-bootstrap
       ];
     })
-    inputs.hytale-launcher.packages.${system}.default
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [
@@ -101,11 +102,6 @@ in
         ];
     })
   ];
-
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts = [ pkgs.keepassxc pkgs.fx-cast-bridge ];
-  };
 
   programs.zed-editor = {
     enable = true;

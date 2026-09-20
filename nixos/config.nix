@@ -64,7 +64,6 @@
       "tty"
       "audio"
       "plugdev"
-      "docker"
       "networkmanager"
     ];
   };
