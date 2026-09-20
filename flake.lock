@@ -718,13 +718,13 @@
     "ssh": {
       "flake": false,
       "locked": {
-        "lastModified": 1789824910,
-        "narHash": "sha256-Iyi651P3/aExG9wyPU+RXyJcYcbPplf32hZI7f34hRo=",
-        "path": "/mnt/etc/nixos/.ssh",
+        "lastModified": 1789925020,
+        "narHash": "sha256-qqNxSF4Z+RO8s6EpVxMp3Sf0KyE9Dj3Ty/quwAO4+u0=",
+        "path": "/etc/nixos/.ssh",
         "type": "path"
       },
       "original": {
-        "path": "/mnt/etc/nixos/.ssh",
+        "path": "/etc/nixos/.ssh",
         "type": "path"
       }
     },

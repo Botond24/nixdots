@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ssh = {
-      url = "path:/mnt/etc/nixos/.ssh";
+      url = "path:/etc/nixos/.ssh";
       flake = false;
     };
 
