@@ -19,6 +19,7 @@
     ./loginManager.nix
     ./network.nix
     ./nix-index.nix
+    ./fs.nix
     inputs.openrgb-highlighter.nixosModules.x86_64-linux.default
 #    ../server/config.nix
   ];
@@ -35,13 +36,10 @@
     };
   };
 
-  zramSwap.enable = true;
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024; # 16 GiB
-    }
-  ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 80;
+  };
 
   fileSystems."/media/SSD2TB" = {
     device = "/dev/disk/by-label/SSD2TB";
@@ -64,6 +62,7 @@
       "tty"
       "audio"
       "plugdev"
+      "docker"
       "networkmanager"
     ];
   };

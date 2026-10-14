@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 let
@@ -9,7 +10,7 @@ let
 
 in
 {
-  services.displayManager.sddm = {
+  /*services.displayManager.sddm = {
     enable = true;
     extraPackages = [
       custom-sddm-astronaut
@@ -27,5 +28,23 @@ in
 
   environment.systemPackages = [
     custom-sddm-astronaut
-  ];
+  ];*/
+
+  services.accounts-daemon.enable = true;
+
+  services.displayManager.regreet = {
+    enable = true;
+    package = lib.mkForce (pkgs.regreet.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ pkgs.makeWrapper ];
+
+      postInstall = (oldAttrs.postInstall or "") + ''
+        wrapProgram $out/bin/regreet \
+          --set GTK_USE_PORTAL "0" \
+          --set GDK_DEBUG "no-portals" \
+          --set GSK_RENDERER "gl" \
+          --add-flags "-v"
+      '';
+    }));
+    cageArgs = [ "-s" "-d" "-m" "last" ];
+  };
 }

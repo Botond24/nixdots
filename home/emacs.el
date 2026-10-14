@@ -4,6 +4,7 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
 (package-initialize)
 
 (setq custom-file "~/.emacs.d/custom.el")
@@ -16,6 +17,7 @@
 (tab-bar-mode 1)
 (show-paren-mode 1)
 (delete-selection-mode 1)
+(setq visible-cursor nil)
 
 ;;;sensible defaults
 (setq inhibit-startup-message t)
@@ -96,7 +98,7 @@
   (start-playerctl))
 
 ;;; custom keybinds
-(global-set-key (kbd "C-é") (kbd "C-g"))
+(define-key key-translation-map (kbd "C-é") (kbd "C-g"))
 (global-set-key (kbd "C-q") 'save-buffers-kill-emacs)
 (global-set-key (kbd "C-a") 'mark-whole-buffer)
 (global-set-key (kbd "C-s") 'save-buffer)

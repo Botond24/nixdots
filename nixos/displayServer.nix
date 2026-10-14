@@ -1,3 +1,4 @@
+
 {
   pkgs,
   inputs,
@@ -11,6 +12,8 @@ in {
   environment.plasma6 = {
     excludePackages = with pkgs.kdePackages; [
       discover
+      konsole
+      elisa
     ];
   };
   programs.partition-manager.enable = true;

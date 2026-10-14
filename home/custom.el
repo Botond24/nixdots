@@ -30,12 +30,23 @@
  '(isearch-allow-motion t)
  '(isearch-allow-scroll 'unlimited)
  '(isearch-wrap-pause 'no-ding)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(base16-theme c-eldoc cmake-mode company-box company-c-headers d-mode
+		  direnv elcord embark exec-path-from-shell go-mode
+		  ido-completing-read+ kdl-mode lsp-treemacs lsp-ui
+		  marginalia move-text multiple-cursors nix-mode
+		  nixfmt nushell-mode platformio-mode simpleclip
+		  smartparens smex term-keys tide tree-sitter
+		  treemacs-icons-dired treemacs-magit
+		  treemacs-projectile treemacs-tab-bar treesit-auto
+		  typescript-mode web-mode))
  '(safe-local-variable-directories '("/media/SSD2TB/Documents/RUG-HW/ICG/icgv_framework/"))
  '(tab-bar-mode t)
  '(tab-bar-new-tab-choice ".")
  '(tool-bar-position 'left)
- '(tool-bar-style 'image))
+ '(tool-bar-style 'image)
+ '(xterm-mouse-mode t)
+ '(xterm-update-cursor nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

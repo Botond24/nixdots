@@ -82,6 +82,7 @@ in {
         return-youtube-dislikes
         google-search-maps-button
       ];
+      extensions.settings."FirefoxColor@mozilla.com".force = true;
 
       settings = {
         "browser.download.viewableInternally.typeWasRegistered.avif" = true;
@@ -275,5 +276,8 @@ in {
       PictureInPicture.Enabled = true;
     };
   };
-  stylix.targets.firefox.profileNames = [ "regular" ];
+  stylix.targets.firefox = {
+    profileNames = [ "regular" ];
+    colorTheme.enable = true;
+  };
 }

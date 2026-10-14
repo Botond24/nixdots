@@ -61,9 +61,9 @@
             phase2-auth="mschapv2";
           };
         };
-        ChickenJockey_5G-1 = default { name = "ChickenJockey_5G-1"; pass = "$PASS_BURG"; };
-        ChickenJockey_5G-2 = default { name = "ChickenJockey_5G-2"; pass = "$PASS_BURG"; };
-        "ChickenJockey_2.4G" = default { name = "ChickenJockey_2.4G"; pass = "$PASS_BURG"; };
+        Chickenjockey_5G-1 = default { name = "Chickenjockey_5G-1"; pass = "$PASS_BURG"; };
+        Chickenjockey_5G-2 = default { name = "Chickenjockey_5G-2"; pass = "$PASS_BURG"; };
+        "Chickenjockey_2.4G" = default { name = "Chickenjockey_2.4G"; pass = "$PASS_BURG"; };
         Dokicasa = default { name = "Dokicasa"; pass = "$PASS_HUN"; };
         "Wife-fi married" = default { name = "Wife-fi married"; pass = "$PASS_HOME"; };
         "Wife-fi divorced" = default { name = "Wife-fi divorced"; pass = "$PASS_HOME"; };

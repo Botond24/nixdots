@@ -193,6 +193,10 @@
       cursor.theme = config.stylix.cursor.name;
       # iconTheme
     };
+    configFile.kdeglobals.General = {
+      TerminalApplication = "kitty";
+      TerminalService = "kitty.desktop";
+    };
     configFile.kwinrc.Effect-overview.BorderActivate = 9;
     configFile.kded5rc."Module-gtkconfig"."autoload" = false;
     configFile."plasma-org.kde.plasma.desktop-appletsrc"."[Containments][30][Applets][35][Applets][47][Configuration][General]".volumeFeedback = false;

@@ -10,7 +10,7 @@
         "/boot" = {
           device = "/dev/disk/by-uuid/4019-488C";
           fsType = "vfat";
-        }
+        };
     };
 
     services.btrfs.autoScrub = {
@@ -27,4 +27,8 @@
             extraOptions = [ "--loadavg-target" "5.0" ];
         };
     };
+    swapDevices = [{
+      device = "/swap/file";
+      size = 16*1024; # 16 GiB
+    }];
 }

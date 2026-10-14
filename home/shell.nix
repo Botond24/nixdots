@@ -85,7 +85,8 @@ in
     settings = {
       shell = "${lib.getExe pkgs.nushell}";
 
-      allow_remote_control = "no";
+      allow_remote_control = "socket-only";
+      listen_on = "unix:/tmp/kitty.{kitty_pid}";
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
@@ -98,7 +99,9 @@ in
       selection_foreground = "#000000";
       selection_background = "#fffacd";
       background_blur = 1;
+
     };
+    #extraConfig = import ./emacs-kitty.nix {};
   };
   programs.starship = {
     enable = true;

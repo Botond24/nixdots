@@ -76,6 +76,8 @@ in
     pinta
 
     (inputs.nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs "idea" pluginList)
+    (inputs.nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs "clion" pluginList)
+
     kicad
     prusa-slicer
     openrgb-with-all-plugins
